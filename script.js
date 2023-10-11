@@ -7,8 +7,7 @@ document.getElementById("login").onsubmit=function(event){
         password: password
     })
 
-console.log(body)
-fetch('https://reqres.in/api/login',{
+fetch('https://reqres.in/api/login/',{
         method: 'POST',
         body: body,
         Headers: {
@@ -16,6 +15,24 @@ fetch('https://reqres.in/api/login',{
     }
     })
     .then(function(response){
-    console.log(response)
+        if (!response.ok) {
+            return Promise.reject()
+        }
+    console.log(response.JSON)
+    })
+    .then(function(response){
+        return fetch('https://reqres.in/api/users')
+    })    
+    .then(function(response){
+        if (!response.ok) {
+            return Promise.reject()
+        }
+    console.log(response.JSON)
+    })
+    .then(function(userPage) {
+        console.log(userPage)
+    })
+    .catch(function(error){
+        console.error(error)
     })
 }
